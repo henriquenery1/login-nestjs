@@ -17,7 +17,7 @@ export class AuthService {
       throw new BadRequestException('email already exists');
     }
 
-    const hashedPassword = this.hashPassword(password);
+    const hashedPassword = await this.hashPassword(password);
 
     await this.prisma.user.create({
       data: {
