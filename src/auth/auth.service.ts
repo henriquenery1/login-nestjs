@@ -17,7 +17,7 @@ export class AuthService {
       throw new BadRequestException('email already exists');
     }
 
-    const hashPassword = this.hashPassword(password);
+    const hashedPassword = this.hashPassword(password);
 
     return { message: 'signup was succefull' };
   }
