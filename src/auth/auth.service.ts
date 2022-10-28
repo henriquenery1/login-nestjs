@@ -19,6 +19,13 @@ export class AuthService {
 
     const hashedPassword = this.hashPassword(password);
 
+    await this.prisma.user.create({
+      data: {
+        email,
+        hashedPassword,
+      },
+    });
+
     return { message: 'signup was succefull' };
   }
 
