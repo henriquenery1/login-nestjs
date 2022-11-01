@@ -14,7 +14,7 @@ export class AuthService {
 
     const foundUser = await this.prisma.user.findUnique({ where: { email } });
     if (foundUser) {
-      throw new BadRequestException('email already exists');
+      throw new BadRequestException('Email já cadastrado');
     }
 
     const hashedPassword = await this.hashPassword(password);
@@ -26,7 +26,7 @@ export class AuthService {
       },
     });
 
-    return { message: 'signup was succefull' };
+    return { message: 'Autenticação realizada com sucesso' };
   }
 
   async signin(dto: AuthDto) {
@@ -34,7 +34,7 @@ export class AuthService {
 
     const foundUser = await this.prisma.user.findUnique({ where: { email } });
     if (foundUser) {
-      throw new BadRequestException('Wrong credentials');
+      throw new BadRequestException('Credenciais inválidas');
     }
 
     return ''
