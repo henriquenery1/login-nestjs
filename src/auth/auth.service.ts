@@ -37,6 +37,11 @@ export class AuthService {
       throw new BadRequestException('Credenciais inválidas');
     }
 
+    const isMatch = await this.comparePassword({password, hash: foundUser.hashedPassword});
+    if (!isMatch) {
+      throw new BadRequestException('Credenciais inválidas');
+    }
+
     return ''
   }
 
@@ -47,5 +52,9 @@ export class AuthService {
   async hashPassword(password: string) {
     const saltOrRounds = 10;
     return await bcrypt.hash(password, saltOrRounds);
+  }
+
+  async comparePassword({password, hash}): Promise<boolean> {
+    return await bcrypt.compare(password, hash);
   }
 }
